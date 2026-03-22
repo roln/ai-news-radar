@@ -5,20 +5,29 @@ on:
   schedule:
     - cron: "*/30 * * * *"
 
+concurrency:
+  group: update-ai-news-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
 jobs:
   update:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: "requirements.txt"
 
       - name: Install dependencies
         run: |
@@ -40,9 +49,9 @@ jobs:
       - name: Update data
         run: |
           if [ -f feeds/follow.opml ]; then
-            python scripts/update_news.py --output-dir data --window-hours 24 --rss-opml feeds/follow.opml
+            python scripts/update_news.py --output-dir data --window-hours 24 --archive-days 21 --rss-opml feeds/follow.opml
           else
-            python scripts/update_news.py --output-dir data --window-hours 24
+            python scripts/update_news.py --output-dir data --window-hours 24 --archive-days 21
           fi
 
       - name: Commit and push changes
