@@ -8,6 +8,14 @@
 
 ## 中文
 
+### 0. 在线入口
+
+- 线上页面：
+  - `https://learnprompt.github.io/ai-news-radar/`
+- 说明：
+  - 日常查看请打开这个页面，不要直接打开 `data/latest-24h.json`
+  - GitHub Actions 会持续更新 `data/*.json`，GitHub Pages 会展示最新页面
+
 ### 1. 这个项目每天更新需要一直开 Codex 吗？
 
 不需要。  
@@ -88,6 +96,14 @@ python -m http.server 8080
 ---
 
 ## English
+
+### 0. Live Site
+
+- Live page:
+  - `https://learnprompt.github.io/ai-news-radar/`
+- Note:
+  - Use this page for daily reading instead of opening `data/latest-24h.json` directly
+  - GitHub Actions keeps `data/*.json` updated and GitHub Pages serves the latest UI
 
 Production-grade AI/tech news aggregator with a static web UI, 24h updates, WaytoAGI timeline, and OPML RSS ingestion.
 
